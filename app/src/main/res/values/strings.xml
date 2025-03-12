@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ToDo</string>
+    <string name="title_home">Home</string>
+    <string name="title_folder">Folder</string>
+    <string name="title_calendar">Calendar</string>
+    <string name="title_history">History</string>
+
+    <string name="home_fragment">home fragment</string>
+    <string name="folder_fragment">folder fragment</string>
+    <string name="calendar_fragment">calendar fragment</string>
+    <string name="history_fragment">history fragment</string>
+</resources>
