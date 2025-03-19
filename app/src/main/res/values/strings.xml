@@ -9,4 +9,8 @@
     <string name="folder_fragment">folder fragment</string>
     <string name="calendar_fragment">calendar fragment</string>
     <string name="history_fragment">history fragment</string>
+
+    <string name="dialog_title">Create</string>
+    <string name="dialog_create_task">New Task</string>
+    <string name="dialog_create_folder">New Folder</string>
 </resources>
