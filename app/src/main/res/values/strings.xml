@@ -13,4 +13,8 @@
     <string name="dialog_title">Create</string>
     <string name="dialog_create_task">New Task</string>
     <string name="dialog_create_folder">New Folder</string>
+
+    <string name="new_task_description">Enter description</string>
+    <string name="new_task_time">Select date and time</string>
+    <string name="new_task_folder">Enter folder name</string>
 </resources>
