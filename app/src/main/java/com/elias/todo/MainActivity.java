@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,7 +25,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private Calendar calendar = Calendar.getInstance();
+    private final Calendar calendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,45 +39,29 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showCreateDialog();
-            }
-        });
+        binding.fab.setOnClickListener(view -> showCreateDialog());
     }
 
     private void showCreateDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.bottomsheetlayout);
+        dialog.setContentView(R.layout.bottom_sheet_layout);
 
         LinearLayout layoutNewTask = dialog.findViewById(R.id.layoutNewTask);
         LinearLayout layoutNewFolder = dialog.findViewById(R.id.layoutNewFolder);
         ImageView cancelButton = dialog.findViewById(R.id.cancelButton);
 
-        layoutNewTask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                showNewTaskDialog();
-            }
+        layoutNewTask.setOnClickListener(view -> {
+            dialog.dismiss();
+            showNewTaskDialog();
         });
 
-        layoutNewFolder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                Toast.makeText(MainActivity.this, "New Folder create", Toast.LENGTH_LONG).show();
-            }
+        layoutNewFolder.setOnClickListener(view -> {
+            dialog.dismiss();
+            Toast.makeText(MainActivity.this, "New Folder create", Toast.LENGTH_LONG).show();
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        cancelButton.setOnClickListener(view -> dialog.dismiss());
 
         dialog.show();
         dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
