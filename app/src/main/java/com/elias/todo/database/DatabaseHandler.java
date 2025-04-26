@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.elias.todo.model.Task;
 import com.elias.todo.utils.Util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHandler extends SQLiteOpenHelper {
     public DatabaseHandler(Context context) {
         super(context, Util.DATABASE_NAME, null, Util.DATABASE_VERSION);
@@ -60,6 +63,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         cursor.close();
         return task;
+    }
+
+    public List<Task> getAllTasks(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<Task> taskList = new ArrayList<>();
+        String selectAll = "SELECT * FROM " + Util.TABLE_NAME;
+        Cursor cursor = db.rawQuery(selectAll, null);
+        if (cursor.moveToFirst()){
+            do {
+                Task task = new Task();
+                task.setId(Integer.parseInt(cursor.getString(0)));
+                task.setDescription(cursor.getString(1));
+                task.setTime(cursor.getString(2));
+                task.setLevel(cursor.getString(3));
+                task.setFolder(cursor.getString(4));
+                task.setStatus(cursor.getString(5));
+
+                taskList.add(task);
+            } while (cursor.moveToNext());
+        }
+
+        return taskList;
     }
 
     public int updateTask(Task task){

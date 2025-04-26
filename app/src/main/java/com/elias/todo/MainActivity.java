@@ -17,7 +17,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.elias.todo.database.DatabaseHandler;
 import com.elias.todo.databinding.ActivityMainBinding;
+import com.elias.todo.model.Task;
 
 import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private final Calendar calendar = Calendar.getInstance();
+    DatabaseHandler db = new DatabaseHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +105,22 @@ public class MainActivity extends AppCompatActivity {
         btn_pick_datetime.setOnClickListener(view -> showDataTimePicker(edit_time));
 
         create_new_task.setOnClickListener(view -> {
+                if (edit_description.getText().toString().isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Please enter a task description", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (edit_time.getText().toString().isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Please select a time", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (edit_folder.getText().toString().isEmpty()) {
+                    edit_folder.setText("Uncategorized");
+                }
+
                 Toast.makeText(MainActivity.this, "New Task created", Toast.LENGTH_LONG).show();
+                db.addTask(new Task(edit_description.getText().toString(),
+                                    edit_time.getText().toString(),
+                                    isFavorite.get() ? "1" : "0",
+                                    edit_folder.getText().toString(),
+                              "1"));
                 dialog.dismiss();
             }
         );
